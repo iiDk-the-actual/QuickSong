@@ -18,6 +18,7 @@ class Program
             Console.WriteLine("  -description  : Print \"title by artist\"");
             Console.WriteLine("  -icon         : Print album art as base64 data (png)");
             Console.WriteLine("  -time         : Print start time, end time, and elapsed time as json");
+            Console.WriteLine("  -status       : Print status: Closed, Opened, Changing, Stopped, Playing, Paused");
             Console.WriteLine("  -all          : Print all data as json");
             Console.WriteLine("  -? or --help  : Show this help message");
             return;
@@ -41,6 +42,8 @@ class Program
         double currentPosition = timelineProperties.Position.TotalSeconds;
         double startTime = timelineProperties.StartTime.TotalSeconds;
         double endTime = timelineProperties.EndTime.TotalSeconds;
+
+        string playbackStatus = playbackInfo.PlaybackStatus.ToString();
 
         switch (args[0].ToLower())
         {
@@ -83,6 +86,9 @@ class Program
                 Console.WriteLine(JsonSerializer.Serialize(timeData));
 
                 break;
+            case "-status":
+                Console.WriteLine(playbackStatus);
+                break;
             case "-all":
                 {
                     string? base64Thumbnail = null;
@@ -102,6 +108,7 @@ class Program
                         StartTime = startTime,
                         EndTime = endTime,
                         ElapsedTime = currentPosition,
+                        Status = playbackStatus,
                         ThumbnailBase64 = base64Thumbnail
                     };
 

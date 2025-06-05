@@ -12,6 +12,7 @@ Options:
   -description  : Print "title - artist"
   -icon         : Print album art as base64 data (png)
   -time         : Print start time, end time, and elapsed time as json
+  -status       : Print status: Closed, Opened, Changing, Stopped, Playing, Paused
   -all          : Print all data as json
   -? or --help  : Show this help message
 ```
