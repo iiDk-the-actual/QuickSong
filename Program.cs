@@ -17,6 +17,7 @@ class Program
             Console.WriteLine("  -artist       : Print the current artist name");
             Console.WriteLine("  -description  : Print \"title by artist\"");
             Console.WriteLine("  -icon         : Print album art as base64 data (png)");
+            Console.WriteLine("  -time         : Print start time, end time, and elapsed time as json");
             Console.WriteLine("  -all          : Print all data as json");
             Console.WriteLine("  -? or --help  : Show this help message");
             return;
@@ -34,6 +35,13 @@ class Program
         string title = props.Title;
         string artist = props.Artist;
 
+        var playbackInfo = session.GetPlaybackInfo();
+        var timelineProperties = session.GetTimelineProperties();
+
+        double currentPosition = timelineProperties.Position.TotalSeconds;
+        double startTime = timelineProperties.StartTime.TotalSeconds;
+        double endTime = timelineProperties.EndTime.TotalSeconds;
+
         switch (args[0].ToLower())
         {
             case "-name":
@@ -43,7 +51,7 @@ class Program
                 Console.WriteLine(artist);
                 break;
             case "-description":
-                Console.WriteLine($"{title} by {artist}");
+                Console.WriteLine($"{title} - {artist}");
                 break;
             case "-icon":
                 if (props.Thumbnail != null)
@@ -64,6 +72,17 @@ class Program
                     Console.WriteLine("No thumbnail available");
                 }
                 break;
+            case "-time":
+                var timeData = new
+                {
+                    StartTime = startTime,
+                    EndTime = endTime,
+                    ElapsedTime = currentPosition
+                };
+
+                Console.WriteLine(JsonSerializer.Serialize(timeData));
+
+                break;
             case "-all":
                 {
                     string? base64Thumbnail = null;
@@ -80,11 +99,13 @@ class Program
                         Title = title,
                         Artist = artist,
                         Description = $"{artist} - {title}",
+                        StartTime = startTime,
+                        EndTime = endTime,
+                        ElapsedTime = currentPosition,
                         ThumbnailBase64 = base64Thumbnail
                     };
 
-                    string json = JsonSerializer.Serialize(allData);
-                    Console.WriteLine(json);
+                    Console.WriteLine(JsonSerializer.Serialize(allData));
                     break;
                 }
             default:
