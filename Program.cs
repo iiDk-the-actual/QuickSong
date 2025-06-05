@@ -11,7 +11,7 @@ class Program
     {
         if (args.Length == 0 || args[0] == "-?" || args[0] == "--help")
         {
-            Console.WriteLine("Usage: quicksong.exe [option]");
+            Console.WriteLine("Usage: QuickSong.exe [option]");
             Console.WriteLine("Options:");
             Console.WriteLine("  -name         : Print the current song title");
             Console.WriteLine("  -artist       : Print the current artist name");
