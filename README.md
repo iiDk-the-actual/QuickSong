@@ -10,6 +10,7 @@ Options:
   -artist       : Print the current artist name
   -description  : Print "title - artist"
   -icon         : Print album art as base64 data (png)
+  -time         : Print start time, end time, and elapsed time as json
   -all          : Print all data as json
   -? or --help  : Show this help message
 ```
