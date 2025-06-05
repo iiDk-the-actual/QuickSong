@@ -1,5 +1,5 @@
 # QuickSong
-A >100 line program that gets data for the currently playing media across most media playing software<br>
+A ~100 line program that gets data for the currently playing media across most media playing software<br>
 Works on Spotify, VLC Media Player, YouTube Music
 
 ## Usage
